@@ -1,21 +1,37 @@
 import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
+import Axios from "axios";
 
 class SignUp extends Component {
   state = {
     name: "",
     age: 0,
     email: "",
-    password: ""
+    password: "",
+    success: false
   };
 
   handleChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  handleSubmit = e => {
+  handleSubmit = async e => {
     e.preventDefault();
 
-    console.log(this.state);
+    const { name, age, email, password } = this.state;
+
+    const response = await Axios.post("http://localhost:8000/api/auth/signup", {
+      name,
+      age,
+      email,
+      password
+    });
+
+    if (response.data === "Success") {
+      this.setState({ success: true });
+    } else {
+      alert("gagal");
+    }
   };
   render() {
     return (
