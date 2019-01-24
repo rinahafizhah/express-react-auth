@@ -31,6 +31,9 @@ class SignUp extends Component {
     }
   };
   render() {
+    if (this.state.success) {
+      return <Redirect to="/signin" />;
+    }
     return (
       <form onSubmit={this.handleSubmit}>
         <input
