@@ -16,7 +16,8 @@ class UserList extends Component {
   }
 
   signOut = e => {
-    console.log("sign out");
+    Cookies.remove('token')
+    this.props.logout();
   };
   render() {
     return (

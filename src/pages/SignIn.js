@@ -22,8 +22,9 @@ class SignIn extends Component {
       ...rest
     });
     if (response.data.token) {
-      Cookies.set("token", response.data.token, { expires: 7 });
       this.setState({ success: true });
+      Cookies.set("token", response.data.token, { expires: 7 });
+      this.props.login(true);
     } else {
       alert("Fail");
     }
