@@ -1,12 +1,18 @@
 import React, { Component, Fragment } from "react";
 import Axios from "axios";
+import Cookies from "js-cookie";
 
 class UserList extends Component {
   state = { users: [] };
 
   async componentDidMount() {
-    const users = await Axios.get("http://localhost:8000/api/users");
-    this.setState({ users });
+    const token = Cookies.get("token");
+    const response = await Axios.get("http://localhost:8000/api/users", {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+    this.setState({ users: response.data.users });
   }
 
   signOut = e => {
