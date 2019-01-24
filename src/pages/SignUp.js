@@ -18,13 +18,10 @@ class SignUp extends Component {
   handleSubmit = async e => {
     e.preventDefault();
 
-    const { name, age, email, password } = this.state;
+    const { success, ...rest } = this.state;
 
     const response = await Axios.post("http://localhost:8000/api/auth/signup", {
-      name,
-      age,
-      email,
-      password
+      ...rest
     });
 
     if (response.data === "Success") {
