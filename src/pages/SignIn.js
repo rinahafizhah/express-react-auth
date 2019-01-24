@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import Axios from "axios";
+import { Redirect } from "react-router-dom";
+import Cookies from "js-cookie";
 
 class SignIn extends Component {
   state = {
@@ -19,9 +21,17 @@ class SignIn extends Component {
     const response = await Axios.post("http://localhost:8000/api/auth/signin", {
       ...rest
     });
-    console.log(response);
+    if (response.data.token) {
+      Cookies.set("token", response.data.token, { expires: 7 });
+      this.setState({ success: true });
+    } else {
+      alert("Fail");
+    }
   };
   render() {
+    if (this.state.success) {
+      return <Redirect to="/users" />;
+    }
     return (
       <form onSubmit={this.handleSubmit}>
         <input
