@@ -22,8 +22,10 @@ class UserList extends Component {
     return (
       <Fragment>
         <ul>
-          {this.state.users.map(user => (
-            <li>{user.name}</li>
+          {this.state.users.map((user, i) => (
+            <li key={i}>
+              {user.name} {user.email}
+            </li>
           ))}
         </ul>
         <button onClick={this.signOut}>Sign Out</button>
