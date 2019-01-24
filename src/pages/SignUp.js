@@ -11,9 +11,15 @@ class SignUp extends Component {
   handleChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
+
+  handleSubmit = e => {
+    e.preventDefault();
+
+    console.log(this.state);
+  };
   render() {
     return (
-      <form>
+      <form onSubmit={this.handleSubmit}>
         <input
           type="text"
           name="name"
