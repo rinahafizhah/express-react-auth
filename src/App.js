@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { Route, Redirect } from "react-router-dom";
 import Cookies from "js-cookie";
+import Axios from "axios";
 
 import Home from "./pages/Home";
 import SignUp from "./pages/SignUp";
@@ -12,11 +13,17 @@ class App extends Component {
     isAuthenticated: false
   };
 
-  componentDidMount() {
+  async componentDidMount() {
     const token = Cookies.get("token");
 
     if (token) {
-      this.setState({ isAuthenticated: true });
+      const response = await Axios.get(
+        "http://localhost:8000/api/auth/verify",
+        { headers: { Authorization: `bearer ${token}` } }
+      );
+      if(response.status === 200){
+        this.setState({ isAuthenticated: true });
+      }
     }
   }
 
